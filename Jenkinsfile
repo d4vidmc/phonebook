@@ -12,10 +12,5 @@ pipeline {
                 sh './vendor/bin/phpunit'
             }
         }
-        stage('Code analisys') { 
-            steps {
-                // 
-            }
-        }
     }
 }
