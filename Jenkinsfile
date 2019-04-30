@@ -24,6 +24,16 @@ pipeline {
                 sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml --coverage-html results/phpunit/coverage --coverage-clover results/phpunit/coverage.xml -c phpunit.xml'
             }
         }
+        stage('Sonar qube') { 
+            steps {
+                sh 'sonar-scanner \
+                  -Dsonar.projectKey=d4vidmc_phonebook \
+                  -Dsonar.organization=d4vidmc-github \
+                  -Dsonar.sources=. \
+                  -Dsonar.host.url=https://sonarcloud.io \
+                  -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
+            }
+        }
     }
    post {
         always {
