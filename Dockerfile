@@ -53,9 +53,8 @@ RUN rm -rf /var/www/*
 
 RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
 
-RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip -d /var/www/sonar-scanner-3.3.0.1492-linux
 
 ENV PATH="/var/www/sonar-scanner-3.3.0.1492-linux:${PATH}"
 
 CMD apachectl -D FOREGROUND 
-
