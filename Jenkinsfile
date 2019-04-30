@@ -1,9 +1,11 @@
 pipeline { 
-docker { image 'ubuntu:18.04' }
+    agent {
+        dockerfile true
+    }
     stages {
         stage('Public directory') { 
             steps {
-                sh 'cd /var/www/html'
+                sh 'cd /var/www/'
             }
         }
         stage('Get source code') { 
