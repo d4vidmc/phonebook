@@ -7,6 +7,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-utils \
     curl \
+    wget \
+    unzip \
     git \
     apache2 \
     libapache2-mod-php7.2 \
@@ -32,7 +34,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     mysql-client \
     iputils-ping \
     locales \
-    sqlite3 \
     ca-certificates \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -50,4 +51,11 @@ RUN rm index.html
 
 RUN rm -rf /var/www/*
 
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+
+RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip
+
+ENV PATH /var/www/sonar-scanner-3.3.0.1492-linux
+
 CMD apachectl -D FOREGROUND 
+
