@@ -9,9 +9,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     sudo \
     gnupg \
     ca-certificates \
-    && curl -sL https://deb.nodesource.com/setup_10.15.x  | bash -
-    && apt-get install nodejs
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_10.15.x  | bash -
+RUN apt-get install nodejs
 RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring tokenizer 
 RUN a2enmod rewrite
 # config Dev env PHP
