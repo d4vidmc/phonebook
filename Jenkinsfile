@@ -29,7 +29,7 @@ pipeline {
             }
         }
         stage('Deploy') { 
-            agent any
+            agent master
             steps {
                 sh 'docker-compose up --build'
             }
