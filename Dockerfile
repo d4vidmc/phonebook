@@ -26,5 +26,5 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY . /var/www/html/
-RUN sudo usermod -aG www-data $USER
+RUN chmod -R 755 /var/www/html/
 EXPOSE 80
