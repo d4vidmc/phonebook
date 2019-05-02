@@ -6,7 +6,11 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     zip \
     unzip \
     wget \
+    sudo \
+    gnupg \
     ca-certificates \
+    && curl -sL https://deb.nodesource.com/setup_10.15.x  | bash -
+    && apt-get install nodejs
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring tokenizer 
 RUN a2enmod rewrite
@@ -21,8 +25,5 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY . /var/www/html/
-#RUN usermod -aG www-data $USER
-#RUN cd /var/www
-#RUN mkdir sonar
-#COPY sonar-scanner-3.3.0.1492-linux/ /var/www/sonar
+RUN sudo usermod -aG www-data $USER
 EXPOSE 80

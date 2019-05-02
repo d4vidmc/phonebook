@@ -24,7 +24,7 @@ pipeline {
                 sh './sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
                   -Dsonar.projectKey=d4vidmc_phonebook \
                   -Dsonar.organization=d4vidmc-github \
-                  -Dsonar.sources=. \
+                  -Dsonar.sources=app/Http/Controllers \
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
             }
