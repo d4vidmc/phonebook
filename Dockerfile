@@ -22,6 +22,7 @@ RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
-RUN wget -p /var/www/ https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip -d /var/www/
+RUN cd /var/www
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip
 EXPOSE 80
