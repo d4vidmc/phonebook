@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath group: 'com.eltrino.gradle', name: 'php-plugin', version: '1.0'
+    }
+}
+apply plugin: 'com.eltrino.gradle.php'
+sourceSets {
+    main {
+        php {
+            srcDir '.'
+            include '**/*.php'
+        }
+    }
+}
+//optional
+php{
+    phpExecutableLocation = 'php' // defaults to 'php'
+    phpUnitExecutableLocation='vendor/bin/phpunit' // defaults to 'vendor/bin/phpunit'
+    pmdExecutableLocation = 'vendor/bin/phpmd' // defaults to 'vendor/bin/phpmd'
+    pmdReportFile = 'pmd.xml' // defaults to 'pmd.xml'
+}

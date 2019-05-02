@@ -1,60 +1,26 @@
-FROM ubuntu:18.04
-
-MAINTAINER d4vidmc <d4vidangelmc@gmail.com>
-
-ENV DEBIAN_FRONTEND=noninteractive
-
+FROM php:7.1-apache
+#Install git
 RUN apt-get update && apt-get install -yq --no-install-recommends \
-    apt-utils \
     curl \
-    wget \
-    unzip \
     git \
-    apache2 \
-    libapache2-mod-php7.2 \
-    php7.2-cli \
-    php7.2-json \
-    php7.2-curl \
-    php7.2-fpm \
-    php7.2-gd \
-    php7.2-ldap \
-    php7.2-mbstring \
-    php7.2-mysql \
-    php7.2-soap \
-    php7.2-sqlite3 \
-    php7.2-xml \
-    php7.2-zip \
-    php7.2-intl \
-    php-imagick \
-    openssl \
-    nano \
-    graphicsmagick \
-    imagemagick \
-    ghostscript \
-    mysql-client \
-    iputils-ping \
-    locales \
+    zip \
+    unzip \
     ca-certificates \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring tokenizer 
+RUN a2enmod rewrite
+# config Dev env PHP
+RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /usr/local/etc/php/php.ini
+RUN sed -i -e 's/^display_errors\s*=.*/display_errors = On/' /usr/local/etc/php/php.ini
+RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' /usr/local/etc/php/php.ini
 
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Set locales
-RUN locale-gen en_US.UTF-8 es_ES.UTF-8 es_BO.UTF-8
-
-EXPOSE 80 443
-
-WORKDIR /var/www/html
-
-RUN rm index.html
-
-RUN rm -rf /var/www/*
-
-RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-
-RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip -d /var/www/sonar-scanner-3.3.0.1492-linux
-
-ENV PATH="/var/www/sonar-scanner-3.3.0.1492-linux:${PATH}"
-
-CMD apachectl -D FOREGROUND 
+#Install Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=. --filename=composer
+RUN mv composer /usr/local/bin/
+COPY . /var/www/html/
+RUN chown -R www-data:www-data /var/www/html
+RUN wget -p /var/www/ https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+RUN unzip sonar-scanner-cli-3.3.0.1492-linux.zip -d /var/www/
+EXPOSE 80

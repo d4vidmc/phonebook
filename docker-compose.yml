@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+        image: mysql:5.7
+        container_name: mysql-server-57
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+        - ./database/phonebook_2016-05-08.sql:/docker-entrypoint-initdb.d/dump.sql
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=.sweetpwd.
+          - MYSQL_DATABASE=phonebook
+          - MYSQL_USER=homestead
+          - MYSQL_PASSWORD=secret
+        ports:
+          - "8082:3306"
+  website:
+    container_name: php-laravel-52
+    build:
+      context: ./
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8000:80
+    depends_on:
+      - mysql

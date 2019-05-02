@@ -1,17 +1,12 @@
 pipeline { 
     agent {
         dockerfile true
-    }
+        }
     stages {
         stage('Public directory') { 
             steps {
-                sh 'cd /var/www/'
-            }
-        }
-        stage('Get source code') { 
-            steps {
-                git branch: 'develop',
-                 url: 'https://github.com/d4vidmc/phonebook.git'
+                sh 'cd /var/www/html'
+                sh 'ls -la'
             }
         }
         stage('Get missing dependencies') { 
@@ -26,6 +21,8 @@ pipeline {
         }
         stage('Sonar qube') { 
             steps {
+                sh 'cd /var/www/sonar-scanner-3.3.0.1492-linux/bin'
+                sh 'ls -la'
                 sh 'sonar-scanner \
                   -Dsonar.projectKey=d4vidmc_phonebook \
                   -Dsonar.organization=d4vidmc-github \
@@ -35,9 +32,5 @@ pipeline {
             }
         }
     }
-   post {
-        always {
-            junit '**/results/phpunit/*.xml'
-        }
-    } 
+
 }
