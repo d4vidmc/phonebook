@@ -1,6 +1,7 @@
 FROM php:7.1-apache
 #Install git
 RUN apt-get update && apt-get install -yq --no-install-recommends \
+    apt-utils \
     curl \
     git \
     zip \
@@ -10,7 +11,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     gnupg \
     ca-certificates \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN curl -sL https://deb.nodesource.com/setup_10.15.x  | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x  | bash -
 RUN apt-get install nodejs
 RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring tokenizer 
 RUN a2enmod rewrite
