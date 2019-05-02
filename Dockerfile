@@ -21,8 +21,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
 COPY . /var/www/html/
-RUN usermod -aG www-data $USER
-RUN cd /var/www
-RUN mkdir sonar
-COPY sonar-scanner-3.3.0.1492-linux/ /var/www/sonar
+#RUN usermod -aG www-data $USER
+#RUN cd /var/www
+#RUN mkdir sonar
+#COPY sonar-scanner-3.3.0.1492-linux/ /var/www/sonar
 EXPOSE 80

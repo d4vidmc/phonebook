@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Sonar qube') { 
             steps {
-                sh 'cd /var/www/sonar/bin'
+                sh 'cd /var/www/html/sonar-scanner-3.3.0.1492-linux/bin'
                 sh 'ls -la'
                 sh 'sonar-scanner \
                   -Dsonar.projectKey=d4vidmc_phonebook \
