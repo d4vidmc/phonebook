@@ -4,8 +4,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-utils \
     curl \
     git \
-    zip \
-    unzip \
     wget \
     sudo \
     gnupg \
@@ -25,6 +23,13 @@ RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
+RUN sudo usermod -g www-data root
+RUN chmod -R og=rwx /root/.composer/
 COPY . /var/www/html/
-RUN chmod +xw -R /var/www/html/
+RUN chmod -R og=rwx /var/www/html/vendor
+RUN chmod -R og=rwx /var/www/html/public
+RUN chmod -R og=rwx /var/www/html/storage
+RUN chmod -R og=rwx /var/www/html/app
+RUN chmod -R og=rwx /var/www/html/logs
+RUN chmod -R og=rwx /var/www/html/tests
 EXPOSE 80

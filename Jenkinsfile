@@ -1,18 +1,14 @@
 pipeline { 
     agent any 
     stages{
-        stage('Build in docker container') {
+        stage('Build inside docker container') {
             agent {
                 dockerfile true
                 }
-            environment {
-                PATH = "$PATH:/usr/local/bin"
-            }
             stages {
                 stage('Get missing dependencies') { 
                     steps {
-                        sh 'cd /var/www/html'
-                        sh 'composer update'
+                        sh './var/www/html/composer update'
                     }
                 }
                 stage('Unit test') { 
@@ -20,7 +16,7 @@ pipeline {
                         sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml --coverage-html results/phpunit/coverage --coverage-clover results/phpunit/coverage.xml -c phpunit.xml'
                     }
                 }
-                stage('Sonar qube') { 
+                stage('Code quality inspection') { 
                     steps {
                         sh './sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
                           -Dsonar.projectKey=d4vidmc_phonebook \
@@ -30,7 +26,6 @@ pipeline {
                           -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
                     }
                 }
-
             }
         }
         stage('Deploy') { 
@@ -38,11 +33,16 @@ pipeline {
                 sh 'docker-compose up --build'
             }
         }
-        stage('GUI Automation') { 
-            agent { docker { image 'phonebook-sonar_website' } 
+        stage('Post deploy tasks') { 
+            agent { 
+                docker { image 'phonebook-sonar_website' }
                 }
-            steps {
-                sh 'chmod +xw -R ./'
+            stages{
+                stage('Necesary permission'){
+                    steps {
+                        sh 'chmod -R og=rwx /var/www/html/'
+                    }
+                }
             }
         }
     }
