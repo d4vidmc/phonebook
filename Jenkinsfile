@@ -8,7 +8,8 @@ pipeline {
             stages {
                 stage('Get missing dependencies') { 
                     steps {
-                        sh './var/www/html/composer update'
+                        sh 'cd /var/www/html/'
+                        sh 'composer update'
                     }
                 }
                 stage('Unit test') { 
