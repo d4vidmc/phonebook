@@ -1,4 +1,6 @@
 /node_modules
+.scannerwork
+/sonar-scanner-3.3.0.1492-linux/bin/.scannerwork
 /public/storage
 Homestead.yaml
 Homestead.json
