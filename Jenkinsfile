@@ -41,7 +41,7 @@ pipeline {
             stages{
                 stage('Necesary permission'){
                     steps {
-                        sh 'chmod -R og=rwx /var/www/html/'
+                        sh 'chmod -R 777 /var/www/html/'
                     }
                 }
             }
