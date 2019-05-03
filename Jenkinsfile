@@ -1,51 +1,53 @@
 pipeline { 
-    agent {
-        dockerfile true
-        }
-    environment {
-        PATH = "$PATH:/usr/local/bin"
-    }
-    stages {
-        stage('Public directory') { 
-            steps {
-                sh 'cd /var/www/html'
+    agent any 
+    stages{
+        stage('Build in docker container') {
+            agent {
+                dockerfile true
+                }
+            environment {
+                PATH = "$PATH:/usr/local/bin"
             }
-        }
-        stage('Get missing dependencies') { 
-            steps {
-                sh 'composer update'
-            }
-        }
-        stage('Unit test') { 
-            steps {
-                sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml --coverage-html results/phpunit/coverage --coverage-clover results/phpunit/coverage.xml -c phpunit.xml'
-            }
-        }
-        stage('Sonar qube') { 
-            steps {
-                sh './sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
-                  -Dsonar.projectKey=d4vidmc_phonebook \
-                  -Dsonar.organization=d4vidmc-github \
-                  -Dsonar.sources=app/Http/Controllers \
-                  -Dsonar.host.url=https://sonarcloud.io \
-                  -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
+            stages {
+                stage('Public directory') { 
+                    steps {
+                        sh 'cd /var/www/html'
+                    }
+                }
+                stage('Get missing dependencies') { 
+                    steps {
+                        sh 'composer update'
+                    }
+                }
+                stage('Unit test') { 
+                    steps {
+                        sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml --coverage-html results/phpunit/coverage --coverage-clover results/phpunit/coverage.xml -c phpunit.xml'
+                    }
+                }
+                stage('Sonar qube') { 
+                    steps {
+                        sh './sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
+                          -Dsonar.projectKey=d4vidmc_phonebook \
+                          -Dsonar.organization=d4vidmc-github \
+                          -Dsonar.sources=app/Http/Controllers \
+                          -Dsonar.host.url=https://sonarcloud.io \
+                          -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
+                    }
+                }
+
             }
         }
         stage('Deploy') { 
-            agent { label 'master' }
             steps {
-                sh 'sudo docker-compose up --build'
+                sh 'docker-compose up --build'
             }
         }
         stage('GUI Automation') { 
-            agent { docker {
-                    image 'phonebook-sonar_website'
-                    } 
+            agent { docker { image 'phonebook-sonar_website' } 
                 }
             steps {
                 sh 'chmod -R 777 .'
             }
-         }
-
+        }
     }
 }
