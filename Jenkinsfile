@@ -33,10 +33,10 @@ pipeline {
             steps {
                 sh 'sudo docker-compose up --build'
             }
-            agent { 
-                docker {
+        stage('GUI Automation') { 
+            agent { docker {
                     image 'phonebook-sonar_website'
-                    }
+                    } 
                 }
             steps {
                 sh 'chmod -R 777 .'
