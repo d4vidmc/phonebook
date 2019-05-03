@@ -2,6 +2,9 @@ pipeline {
     agent {
         dockerfile true
         }
+    environment {
+        PATH = "$PATH:/usr/local/bin"
+    }
     stages {
         stage('Public directory') { 
             steps {
