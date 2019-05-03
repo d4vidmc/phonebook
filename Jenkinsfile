@@ -9,13 +9,9 @@ pipeline {
                 PATH = "$PATH:/usr/local/bin"
             }
             stages {
-                stage('Public directory') { 
-                    steps {
-                        sh 'cd /var/www/html'
-                    }
-                }
                 stage('Get missing dependencies') { 
                     steps {
+                        sh 'cd /var/www/html'
                         sh 'composer update'
                     }
                 }
@@ -46,7 +42,7 @@ pipeline {
             agent { docker { image 'phonebook-sonar_website' } 
                 }
             steps {
-                sh 'chmod -R 777 .'
+                sh 'chmod +xw -R ./'
             }
         }
     }
