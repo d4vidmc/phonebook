@@ -26,10 +26,9 @@ RUN mv composer /usr/local/bin/
 RUN sudo usermod -g www-data root
 RUN chmod -R og=rwx /root/.composer/
 COPY . /var/www/html/
-RUN chmod -R og=rwx /var/www/html/vendor
 RUN chmod -R og=rwx /var/www/html/public
 RUN chmod -R og=rwx /var/www/html/storage
 RUN chmod -R og=rwx /var/www/html/app
-RUN chmod -R og=rwx /var/www/html/logs
 RUN chmod -R og=rwx /var/www/html/tests
+RUN chmod -R og=rwx /var/www/html/vendor
 EXPOSE 80
