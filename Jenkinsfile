@@ -31,9 +31,16 @@ pipeline {
         stage('Deploy') { 
             agent { label 'master' }
             steps {
-                sh 'docker-compose up --build'
+                sh 'sudo docker-compose up --build'
             }
-        }
+            agent { 
+                docker {
+                    image 'phonebook-sonar_website'
+                    }
+                }
+            steps {
+                sh 'chmod -R 777 .'
+            }
     }
 
 }
