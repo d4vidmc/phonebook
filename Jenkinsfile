@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh 'docker-compose up --build'
+                sh 'docker-compose up -d --build --no-recreate --remove-orphans'
             }
         }
         stage('Post deploy tasks') { 
@@ -41,7 +41,7 @@ pipeline {
             stages{
                 stage('Necesary permission'){
                     steps {
-                        sh 'chmod -R 777 /var/www/html/'
+                        sh 'chmod -R 777 /var/www/html'
                     }
                 }
             }
