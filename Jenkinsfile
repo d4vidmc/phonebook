@@ -36,7 +36,7 @@ pipeline {
         }
         stage('GUI Test') { 
             steps {
-            git branch: "develop"
+            git branch: "develop",
                 url: 'https://github.com/d4vidmc/phonebook-selenium-tests.git'
             sh 'ls -lat'
             sh 'sudo chmod +x ./gradlew'
