@@ -43,8 +43,10 @@ pipeline {
             steps {
             sh 'git clone -b develop https://github.com/d4vidmc/phonebook-selenium-tests.git'
             sh 'ls -lat'
-            sh 'sudo chmod +x ./gradlew'
-            sh './phonebook-selenium-tests/gradlew clean executeFeature'
+            sh 'cd phonebook-selenium-tests'
+            sh 'sudo chmod +x gradlew'
+            sh 'mv environment.json.dist environment.json'
+            sh './gradlew clean executeFeature'
             }
         }
     }
