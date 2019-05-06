@@ -13,8 +13,6 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x  | bash -
 RUN apt-get install -y nodejs
 RUN docker-php-ext-install pdo pdo_mysql mysqli mbstring tokenizer 
 RUN a2enmod rewrite
-# config httpd apache
-
 # config Dev env PHP
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
 RUN sed -i -e 's/^error_reporting\s*=.*/error_reporting = E_ALL/' /usr/local/etc/php/php.ini

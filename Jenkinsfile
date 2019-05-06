@@ -31,19 +31,19 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh 'docker-compose up -d --build --no-recreate --remove-orphans'
+                sh 'docker-compose up -d --build --remove-orphans'
             }
         }
-        stage('Post deploy tasks') { 
-            agent { 
-                docker { image 'phonebook-sonar_website' }
-                }
-            stages{
-                stage('Necesary permission'){
-                    steps {
-                        sh 'chmod -R 777 /var/www/html'
-                    }
-                }
+        stage('GUI Test') { 
+            steps {
+            git branch: "develop"
+                url: 'https://github.com/d4vidmc/phonebook-selenium-tests.git'
+            sh "ls -lat"
+            }
+            steps {
+                sh 'cd phonebook-selenium-tests/'
+                sh 'sudo chmod +x ./gradlew'
+                sh './gradlew clean executeFeature'
             }
         }
     }

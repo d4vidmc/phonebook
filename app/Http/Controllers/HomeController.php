@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\phoneBook;
 use Validator;
 use Session;
-use Faker\Factory as Faker;
 
 
 class HomeController extends Controller {
@@ -100,29 +99,6 @@ class HomeController extends Controller {
         } else
         {
             return \Redirect::back()->with('flash-message', "No records found! Try something else.");
-        }
-    }
-
-    /**
-     * This method will generate fake data and insert into table.
-     */
-    public function createFakeData()
-    {
-        $faker = Faker::create();
-        foreach (range(1, 100) as $index)
-        {
-            $user           = new User;
-            $user->name     = $faker->name;
-            $user->email    = $faker->email;
-            $user->password = bcrypt('phonebook');
-            $user->save();
-
-            $item                   = new phoneBook();
-            $item->name             = $faker->name;
-            $item->user_id          = Auth::user()->id;
-            $item->phone_number     = $faker->phoneNumber;
-            $item->additional_notes = $faker->catchPhrase;
-            $item->save();
         }
     }
 }
