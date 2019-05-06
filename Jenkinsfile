@@ -29,9 +29,14 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') { 
-            steps {
-                sh 'docker-compose up -d --build --remove-orphans'
+
+        stage('Deploy with database') {
+            stages {
+                stage('Start services'){
+                    steps {
+                        sh 'docker-compose up -d --build --remove-orphans'
+                    }
+                }
             }
         }
         stage('GUI Test') { 
