@@ -1,0 +1,41 @@
+{
+  "credentials": {
+    "user1": {
+      "username": "",
+      "password": ""
+    }
+  },
+  "url": {
+    "base": "http://10.28.136.11:8000/public/",
+    "login": "http://10.28.136.11:8000/public/"
+  },
+  "tags": " --tags ~@wip",
+  "local": {
+    "browser": "chrome"
+  },
+  "docker": {
+    "host": "127.0.0.1"
+  },
+  "saucelabs": {
+    "user": "",
+    "key": "",
+    "browserName": "chrome",
+    "platform": "macOS 10.14",
+    "version": "71.0"
+  },
+  "browserstack": {
+    "user": "",
+    "key": "",
+    "os": "OS X",
+    "os_version": "Mojave",
+    "browser": "Chrome",
+    "browser_version": "71.0"
+  },
+  "testingbot": {
+    "user": "",
+    "key": "",
+    "browserName": "chrome",
+    "platform": "WIN10",
+    "version": "70"
+  }
+}
