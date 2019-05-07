@@ -36,7 +36,7 @@ pipeline {
             stages {
                 stage('Start services'){
                     steps {
-                        sh 'chmod o+rwx -R ./public ./storage ./bootstrap ./app ./tests ./vendorchmod -R o+rwx ./vendor'
+                        sh 'chmod o+rwx -R ./public ./storage ./bootstrap ./app ./tests ./vendor'
                         sh 'docker-compose up -d --build --remove-orphans'
                     }
                 }
@@ -44,7 +44,6 @@ pipeline {
         }
         stage('GUI Test') { 
             steps {
-            sh 'git clone -b develop https://github.com/d4vidmc/phonebook-selenium-tests.git'
             sh 'ls -lat'
             sh 'cd phonebook-selenium-tests'
             sh 'sudo chmod +x gradlew'
