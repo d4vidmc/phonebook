@@ -48,11 +48,9 @@ pipeline {
         stage('GUI Test') { 
             steps {
             sh 'ls -lat'
-            sh 'cd phonebook-selenium-tests/'
-            sh 'ls -lat'
-            sh 'sudo chmod +x gradlew'
+            sh 'sudo chmod +x phonebook-selenium-tests/gradlew'
             sh 'mv environment.json.dist environment.json'
-            sh './gradlew clean executeFeature'
+            sh './phonebook-selenium-tests/gradlew clean executeFeature'
             }
         }
     }
