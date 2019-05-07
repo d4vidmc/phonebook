@@ -18,12 +18,14 @@ import org.testng.annotations.BeforeTest;
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
 
     /** This method execute before the tests. */
+    @BeforeTest
     public void open() {
         // Implement.
         DriverManager.getInstance().getDriver().get(Environment.getInstance().getValue("url.base"));
     }
 
     /** This method close the browser after the features finish. */
+    @AfterTest
     public void close() {
         DriverManager.getInstance().getDriver().quit();
     }
