@@ -58,8 +58,7 @@ pipeline {
             sh 'ls -lat'
             sh 'sudo chmod +x phonebook-selenium-tests/gradlew'
             sh 'mv phonebook-selenium-tests/environment.json.dist phonebook-selenium-tests/environment.json'
-            sh 'cd phonebook-selenium-tests/'
-            sh './gradlew executeFeature'
+            sh './phonebook-selenium-tests/gradlew executeFeature'
             }
         }
     }
@@ -67,7 +66,7 @@ pipeline {
     post {
         //Stop docker compose
         always {
-            echo 'docker-compose down'
+            sh 'docker-compose down'
         }
     }
 }
