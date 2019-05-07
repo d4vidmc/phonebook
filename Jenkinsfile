@@ -49,7 +49,7 @@ pipeline {
             steps {
             sh 'ls -lat'
             sh 'sudo chmod +x phonebook-selenium-tests/gradlew'
-            sh 'mv environment.json.dist environment.json'
+            sh 'mv phonebook-selenium-tests/environment.json.dist phonebook-selenium-tests/environment.json'
             sh './phonebook-selenium-tests/gradlew clean executeFeature'
             }
         }
