@@ -1,5 +1,7 @@
 pipeline { 
-    agent any 
+    agent { 
+        label: 'master' 
+        }
     stages{
         stage('Build inside docker container') {
             agent {
@@ -34,6 +36,7 @@ pipeline {
             stages {
                 stage('Start services'){
                     steps {
+                        sh 'chmod o+rwx -R ./public ./storage ./bootstrap ./app ./tests ./vendorchmod -R o+rwx ./vendor'
                         sh 'docker-compose up -d --build --remove-orphans'
                     }
                 }

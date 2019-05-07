@@ -23,12 +23,4 @@ RUN sed -i -e 's/^zlib.output_compression\s*=.*/zlib.output_compression = Off/' 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=. --filename=composer
 RUN mv composer /usr/local/bin/
-RUN chmod -R 777 /root/.composer
-COPY . /var/www/html/
-RUN chmod -R 777 /var/www/html/public
-RUN chmod -R 777 /var/www/html/storage
-RUN chmod -R 777 /var/www/html/bootstrap
-RUN chmod -R 777 /var/www/html/app
-RUN chmod -R 777 /var/www/html/tests
-RUN chmod -R 777 /var/www/html/vendor
 EXPOSE 80
