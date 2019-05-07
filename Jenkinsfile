@@ -48,9 +48,8 @@ pipeline {
         stage('GUI Test') { 
             steps {
             sh 'ls -lat'
-            sh 'mkdir phonebook-selenium-tests'
-            git branch: 'develop',
-                url: 'https://github.com/d4vidmc/phonebook-selenium-tests.git'
+            sh 'cd phonebook-selenium-tests/'
+            sh 'ls -lat'
             sh 'sudo chmod +x gradlew'
             sh 'mv environment.json.dist environment.json'
             sh './gradlew clean executeFeature'
