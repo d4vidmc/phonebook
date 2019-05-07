@@ -50,7 +50,7 @@ pipeline {
             sh 'ls -lat'
             sh 'sudo chmod +x phonebook-selenium-tests/gradlew'
             sh 'mv phonebook-selenium-tests/environment.json.dist phonebook-selenium-tests/environment.json'
-            sh './phonebook-selenium-tests/gradlew clean executeFeature'
+            sh './phonebook-selenium-tests/gradle executeFeature'
             }
         }
     }
