@@ -19,6 +19,7 @@ public final class DriverManager {
      * @return DriverManager object .
      */
     public static DriverManager getInstance() {
+        ourInstance.getDriver().get(Environment.getInstance().getValue("url.base"));
         return ourInstance;
     }
 
