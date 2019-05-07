@@ -24,7 +24,12 @@ pipeline {
                 }
                 stage('Code quality inspection') { 
                     steps {
-                        sh 'sonar-scanner'
+                        sh './sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner \
+                          -Dsonar.projectKey=d4vidmc_phonebook \
+                          -Dsonar.organization=d4vidmc-github \
+                          -Dsonar.sources=app/Http/Controllers \
+                          -Dsonar.host.url=https://sonarcloud.io \
+                          -Dsonar.login=a3c3fde848a83c4d38fd6976d66aba08efd8ff51'
                     }
                 }
             }
@@ -44,12 +49,10 @@ pipeline {
             steps {
             sh 'ls -lat'
             sh 'mkdir phonebook-selenium-tests'
-            sh 'cd phonebook-selenium-tests/'
             git branch: 'develop',
                 url: 'https://github.com/d4vidmc/phonebook-selenium-tests.git'
             sh 'sudo chmod +x gradlew'
             sh 'mv environment.json.dist environment.json'
-            sh 'gradle clean executeFeature'
             sh './gradlew clean executeFeature'
             }
         }
