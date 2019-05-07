@@ -39,7 +39,7 @@ pipeline {
             stages {
                 stage('Start services'){
                     steps {
-                        sh 'chmod o+rwx -R ./public ./storage ./bootstrap ./app ./tests ./vendor'
+                        sh 'sudo chmod o+rwx -R ./public ./storage ./bootstrap ./app ./tests ./vendor'
                         sh 'docker-compose up -d --build --remove-orphans'
                     }
                 }
