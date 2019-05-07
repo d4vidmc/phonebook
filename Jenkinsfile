@@ -1,6 +1,5 @@
 pipeline { 
     agent label 'master' 
-        }
     stages{
         stage('Build inside docker container') {
             agent {
